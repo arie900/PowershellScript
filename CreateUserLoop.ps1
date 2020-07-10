@@ -1,6 +1,6 @@
 ﻿$Employee = "help"   #Insert Name of user
 
-
+$Create in loop users
 for ($i = 1 ; $i -lt 18 ; $i=$i+1){
 echo "$i"
 New-ADUser -Name "$Employee$i" -GivenName "$Employee$i" `
