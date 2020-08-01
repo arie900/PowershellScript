@@ -1,4 +1,4 @@
-﻿$VMName = "Arie-SVR1" #Insert VMName
+﻿$VMName = "Arie-RTR2" #Insert VMName
 $SwitchName = "ArelionSwitch"
 $Path = "C:\VM\$VMName"
 $localCred = Get-Credential -UserName administrator -Message "Local Machine Credential"
@@ -17,4 +17,10 @@ Start-Sleep -Seconds 90
 Invoke-Command -VMName $VMName -Credential $localCred -ArgumentList $VMName , $domainCred{
 param($VMName , $domainCred)
 Add-Computer -DomainName Arelion.local -NewName $VMName -Credential $domainCred
+}
+
+Start-Sleep -Seconds 5
+Invoke-Command -VMName $VMName -Credential $localCred{
+get-NetAdapter -Name "Ethernet" | New-NetIPAddress -IPAddress 192.168.1.1 -PrefixLength 24
+Get-NetAdapter -Name "Ethernet" | Set-DnsClientServerAddress -ServerAddresses 192.168.1.10
 }
